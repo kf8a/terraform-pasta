@@ -11,3 +11,8 @@ resource "digitalocean_droplet" "web" {
     size = "512mb"
 }
 
+#check out EML from https://code.ecoinformatics.org/code/eml/trunk/
+# compile EML datamanager and copy to NIS directory
+
+# dependencies POSTGRESQL ant, java, tomcat (metacat dont think so anymore)
+#check out NIS from 
