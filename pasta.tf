@@ -9,6 +9,7 @@ resource "digitalocean_droplet" "web" {
     name = "pasta-test"
     region = "nyc3"
     size = "512mb"
+    ssh_keys = ["${var.ssh_keys}"]
 }
 
 #check out EML from https://code.ecoinformatics.org/code/eml/trunk/
