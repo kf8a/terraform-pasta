@@ -1,0 +1,31 @@
+---
+# pasta
+- hosts: pasta-build
+  tasks:
+  - name: upgrade apt-cache
+    apt: update_cache=yes cache_valid_time=3600
+
+  - name: ensure that the system is up to date
+    apt: upgrade=dist
+
+  - name: ensure that postgresql is installed and at the latest version
+    apt: pkg=postgresql state=installed
+
+  - name: jdk is installed
+    apt: pkg=openjdk-7-jdk state=installed
+
+  - apt: pkg=subversion state=installed
+  - apt: pkg=git state=installed
+  - apt: pkg=ant state=installed
+
+  - name: check out data manager library
+    subversion: repo=https://code.ecoinformatics.org/code/eml/trunk/ dest=eml
+
+  - command: ant jar-datamanager-lib
+    args: 
+      chdir: ./eml
+      creates: ./build/datamanager.jar
+
+  - name: check out PASTA
+    git: repo=https://github.com/lter/PASTA.git dest=PASTA
+
