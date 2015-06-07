@@ -21,11 +21,12 @@
   - name: check out data manager library
     subversion: repo=https://code.ecoinformatics.org/code/eml/trunk/ dest=eml
 
+  - name: check out PASTA
+    git: repo=https://github.com/lter/PASTA.git dest=PASTA
+
   - command: ant jar-datamanager-lib
     args: 
       chdir: ./eml
       creates: ./build/datamanager.jar
 
-  - name: check out PASTA
-    git: repo=https://github.com/lter/PASTA.git dest=PASTA
-
+  - command: cp ./eml/build/datamanager.jar ./PASTA/lib/datamanager/
