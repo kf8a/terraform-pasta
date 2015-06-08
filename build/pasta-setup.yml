@@ -8,8 +8,8 @@
       - DataPortal
       - DataPortal2
       - dataserver
-      - EventManager
       - Gatekeeper
+      - EventManager
 
   tasks:
   - name: upgrade apt-cache
@@ -27,7 +27,7 @@
   - apt: pkg=subversion state=installed
   - apt: pkg=git state=installed
   - apt: pkg=ant state=installed
-  - apt: pkg=tomcat8 state=installed
+  - apt: pkg=tomcat7 state=installed
 
   - name: check out data manager library
     subversion: repo=https://code.ecoinformatics.org/code/eml/trunk/ dest=eml
@@ -47,7 +47,7 @@
       chdir: ./PASTA/{{ item }}
     with_items: packages
 
-  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat8/lib
+  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat7/lib
     with_items: packages
 
   - command: ant 
