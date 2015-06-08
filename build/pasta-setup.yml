@@ -17,6 +17,7 @@
   - apt: pkg=subversion state=installed
   - apt: pkg=git state=installed
   - apt: pkg=ant state=installed
+  - apt: pkg=tomcat8 state=installed
 
   - name: check out data manager library
     subversion: repo=https://code.ecoinformatics.org/code/eml/trunk/ dest=eml
@@ -30,3 +31,13 @@
       creates: ./build/datamanager.jar
 
   - command: cp ./eml/build/datamanager.jar ./PASTA/lib/datamanager/
+
+  - command: cp build.properties.template build.properties
+    args:
+      chdir: ./PASTA/AuditManager
+
+  - lineinfile: dest=./PASTA/AuditManager/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat8/lib
+
+  - command: ant 
+    args:
+      chdir: ./PASTA/AuditManager
