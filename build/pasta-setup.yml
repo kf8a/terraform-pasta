@@ -1,6 +1,16 @@
 ---
 # pasta
 - hosts: pasta-build
+  vars:
+    packages:
+      - AuditManager
+      - DataPackageManager
+      - DataPortal
+      - DataPortal2
+      - dataserver
+      - EventManager
+      - Gatekeeper
+
   tasks:
   - name: upgrade apt-cache
     apt: update_cache=yes cache_valid_time=3600
@@ -34,10 +44,14 @@
 
   - command: cp build.properties.template build.properties
     args:
-      chdir: ./PASTA/AuditManager
+      chdir: ./PASTA/{{ item }}
+    with_items: packages
 
-  - lineinfile: dest=./PASTA/AuditManager/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat8/lib
+  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat8/lib
+    with_items: packages
 
   - command: ant 
     args:
-      chdir: ./PASTA/AuditManager
+      chdir: ./PASTA/{{ item }}
+    with_items: packages
+
