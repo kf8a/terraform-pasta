@@ -6,11 +6,9 @@
       - common
       - AuditManager
       - DataPackageManager
-      - DataPortal
       - DataPortal2
       - dataserver
       - Gatekeeper
-      - EventManager
 
   tasks:
   - name: upgrade apt-cache
@@ -52,7 +50,7 @@
       chdir: ./PASTA/{{ item }}
     with_items: packages
 
-  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/jetty8/lib
+  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat7/lib
     with_items: packages
 
   - command: ant 
