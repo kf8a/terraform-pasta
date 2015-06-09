@@ -3,6 +3,7 @@
 - hosts: pasta-build
   vars:
     packages:
+      - common
       - AuditManager
       - DataPackageManager
       - DataPortal
@@ -27,7 +28,7 @@
   - apt: pkg=subversion state=installed
   - apt: pkg=git state=installed
   - apt: pkg=ant state=installed
-  - apt: pkg=jetty8 state=installed
+  - apt: pkg=tomcat8 state=installed
 
   - name: check out data manager library
     subversion: repo=https://code.ecoinformatics.org/code/eml/trunk/ dest=eml
@@ -51,10 +52,8 @@
       chdir: ./PASTA/{{ item }}
     with_items: packages
 
-  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=usr/share/jetty8/lib
+  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/jetty8/lib
     with_items: packages
-
-    #/usr/share/tomcat7/lib
 
   - command: ant 
     args:
