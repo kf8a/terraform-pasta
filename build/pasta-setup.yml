@@ -8,7 +8,7 @@
       - DataPackageManager
       - DataPortal2
       - dataserver
-      - Gatekeeper
+      - 
 
   tasks:
   - name: upgrade apt-cache
@@ -17,8 +17,8 @@
   - name: ensure that the system is up to date
     apt: upgrade=dist
 
-  - name: ensure that postgresql is installed and at the latest version
-    apt: pkg=postgresql state=installed
+# - name: ensure that postgresql is installed and at the latest version
+#   apt: pkg=postgresql state=installed
 
   - name: jdk is installed
     apt: pkg=openjdk-7-jdk state=installed
@@ -58,3 +58,8 @@
       chdir: ./PASTA/{{ item }}
     with_items: packages
 
+  - fetch: src=./PASTA/AuditManager/build/audit.war dest=./nis/audit.war
+  - fetch: src=./PASTA/DataPackageManager/build/package.war dest=./nis/package.war
+  - fetch: src=./PASTA/DataPortal2/build/nis.war dest=./nis/nis.war
+  - fetch: src=./PASTA/dataserver/build/dataserver.war dest=./nis/dataserver.war
+  - fetch: src=./PASTA/Gatekeeper/build/root.war dest=./nis/root.war
