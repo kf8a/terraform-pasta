@@ -49,7 +49,7 @@
       chdir: ./PASTA/{{ item }}
     with_items: packages
 
-  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat7/lib
+  - lineinfile: dest=./PASTA/{{ item }}/build.properties regexp=^tomcat.lib= line=tomcat.lib=/usr/share/tomcat8/lib
     with_items: packages
 
   - command: ant 
