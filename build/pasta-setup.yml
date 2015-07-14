@@ -1,5 +1,6 @@
 ---
-# pasta
+# build pasta in a virtual machine and copy out the war files
+#
 - hosts: pasta-build
   vars:
     packages:
